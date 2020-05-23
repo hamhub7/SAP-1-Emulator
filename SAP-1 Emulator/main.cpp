@@ -17,6 +17,9 @@ public:
 
 	Bus computer;
 	std::map<uint8_t, std::string> mapAsm;
+	bool isExecuting = false;
+	float residualTime = 0.0;
+	int frequency = 60;
 
 	std::string hex(uint32_t n, uint8_t d)
 	{
@@ -40,6 +43,8 @@ public:
 		DrawString(x, y, "Flags:", olc::WHITE);
 		DrawString(x + 64, y, "C", computer.cpu.flags & SAP1::C ? olc::GREEN : olc::RED);
 		DrawString(x + 80, y, "Z", computer.cpu.flags & SAP1::Z ? olc::GREEN : olc::RED);
+		DrawString(x + 110, y, "Frequency:", olc::WHITE);
+		DrawString(x + 110, y + 10, std::to_string(frequency) + "Hz", olc::WHITE);
 		DrawString(x, y + 10, "PC: $" + hex(computer.cpu.pc, 1));
 		DrawString(x, y + 20, "A: $" + hex(computer.cpu.a, 2) + " [" + std::to_string(computer.cpu.a) + "]");
 		DrawString(x, y + 30, "B: $" + hex(computer.cpu.b, 2) + " [" + std::to_string(computer.cpu.b) + "]");
@@ -100,12 +105,35 @@ public:
 		// Extract disassembly every frame since we have such a small amount of RAM that it will inevitably change
 		mapAsm = computer.cpu.disassemble();
 
-		if (GetKey(olc::Key::C).bPressed)
+		if (isExecuting)
 		{
-			do
+			if (residualTime > 0.0f)
 			{
-				computer.cpu.clock();
-			} while (!computer.cpu.complete() && !computer.cpu.halted);
+				residualTime -= fElapsedTime;
+			}
+			else
+			{
+				residualTime += (1.0f / (float)frequency) - fElapsedTime;
+				if (!computer.cpu.halted)
+				{
+					computer.cpu.clock();
+				}
+			}
+		}
+		else
+		{
+			if (GetKey(olc::Key::C).bPressed)
+			{
+				do
+				{
+					computer.cpu.clock();
+				} while (!computer.cpu.complete() && !computer.cpu.halted);
+			}
+		}
+
+		if (GetKey(olc::Key::SPACE).bPressed)
+		{
+			isExecuting = !isExecuting;
 		}
 
 		if (GetKey(olc::Key::R).bPressed)
@@ -113,9 +141,102 @@ public:
 			computer.cpu.reset();
 		}
 
+		if (GetKey(olc::Key::F).bPressed)
+		{
+			if (frequency >= GetFPS())
+			{
+
+			}
+			else if (frequency >= 1000)
+			{
+				if (frequency + 1000 < GetFPS())
+				{
+					frequency += 1000;
+				}
+			}
+			else if (frequency >= 100)
+			{
+				if (frequency + 100 < GetFPS())
+				{
+					frequency += 100;
+				}
+			}
+			else if (frequency >= 10)
+			{
+				if (frequency + 10 < GetFPS())
+				{
+					frequency += 10;
+				}
+			}
+			else
+			{
+				if (frequency + 1 < GetFPS())
+				{
+					frequency += 1;
+				}
+			}
+		}
+
+		if (GetKey(olc::Key::G).bPressed)
+		{
+			if (frequency <= 1)
+			{
+				
+			}
+			else if (frequency <= 10)
+			{
+				frequency -= 1;
+			}
+			else if (frequency <= 100)
+			{
+				frequency -= 10;
+			}
+			else if (frequency <= 1000)
+			{
+				frequency -= 100;
+			}
+			else
+			{
+				frequency -= 1000;
+			}
+		}
+
+		if (frequency > GetFPS())
+		{
+			if (frequency <= 1)
+			{
+
+			}
+			else if (frequency <= 10)
+			{
+				frequency -= 1;
+			}
+			else if (frequency <= 100)
+			{
+				frequency -= 10;
+			}
+			else if (frequency <= 1000)
+			{
+				frequency -= 100;
+			}
+			else
+			{
+				frequency -= 1000;
+			}
+		}
+
 		DrawString(80, 70, decimal(computer.cpu.out, 3), olc::WHITE, 10U);
 		DrawCpu(448, 2);
 		DrawRAM(448, 72);
+		DrawString(7, 227, "  C - Advance one instruction     R - Reset computer  ");
+		if (isExecuting)
+		{
+			DrawString(7, 237, "SPACE - Stop Execution    F - Speed up   G - Slow down");
+		}
+		else
+		{
+			DrawString(7, 237, "SPACE - Start Execution   F - Speed up   G - Slow down");
+		}
 
 		return true;
 	}
