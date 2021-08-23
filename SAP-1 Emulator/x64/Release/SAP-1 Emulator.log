@@ -1,0 +1,13 @@
+﻿  main.cpp
+C:\Users\Hammer-HuberAT18\source\repos\SAP-1-Emulator\SAP-1 Emulator\main.cpp(160,18): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\Hammer-HuberAT18\source\repos\SAP-1-Emulator\SAP-1 Emulator\main.cpp(166,26): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Hammer-HuberAT18\source\repos\SAP-1-Emulator\SAP-1 Emulator\main.cpp(173,25): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Hammer-HuberAT18\source\repos\SAP-1-Emulator\SAP-1 Emulator\main.cpp(180,24): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Hammer-HuberAT18\source\repos\SAP-1-Emulator\SAP-1 Emulator\main.cpp(187,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Hammer-HuberAT18\source\repos\SAP-1-Emulator\SAP-1 Emulator\main.cpp(218,17): warning C4018: '>': signed/unsigned mismatch
+  Generating code
+  2 of 1073 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    3 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  SAP-1 Emulator.vcxproj -> C:\Users\Hammer-HuberAT18\Source\Repos\SAP-1-Emulator\x64\Release\SAP-1 Emulator.exe

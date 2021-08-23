@@ -76,17 +76,30 @@ public:
 	{
 		// Load program
 		std::stringstream ss;
-		ss << "91 E0 BF 75 ";
-		ss << "60 F0 00 00 ";
-		ss << "00 00 00 00 ";
-		ss << "00 00 00 1E";
-		//ss << "00";
+
+		// ---Count to X-----
+		//ss << "91 E0 BF 75 ";
+		//ss << "60 F0 00 00 ";
+		//ss << "00 00 00 00 ";
+		//ss << "00 00 00 1E";
+		
+		// -----Fibonacci------
+		ss << "51 4E 4F E0 ";
+		ss << "1E 2F 70 E0 ";
+		ss << "4E 2F 70 E0 ";
+		ss << "4F 64";
+
 		uint8_t offset = 0x00;
-		while (!ss.eof())
+		while (!ss.eof() && offset < 16)
 		{
 			std::string b;
 			ss >> b;
 			computer.ram[offset] = (uint8_t)std::stoul(b, nullptr, 16);
+			offset++;
+		}
+		while (offset < 16)
+		{
+			computer.ram[offset] = 0;
 			offset++;
 		}
 

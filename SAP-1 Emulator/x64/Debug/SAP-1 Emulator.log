@@ -1,0 +1,8 @@
+﻿  main.cpp
+C:\Users\Hammer-HuberAT18\source\repos\SAP-1-Emulator\SAP-1 Emulator\main.cpp(154,18): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\Hammer-HuberAT18\source\repos\SAP-1-Emulator\SAP-1 Emulator\main.cpp(160,26): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Hammer-HuberAT18\source\repos\SAP-1-Emulator\SAP-1 Emulator\main.cpp(167,25): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Hammer-HuberAT18\source\repos\SAP-1-Emulator\SAP-1 Emulator\main.cpp(174,24): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Hammer-HuberAT18\source\repos\SAP-1-Emulator\SAP-1 Emulator\main.cpp(181,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Hammer-HuberAT18\source\repos\SAP-1-Emulator\SAP-1 Emulator\main.cpp(212,17): warning C4018: '>': signed/unsigned mismatch
+  SAP-1 Emulator.vcxproj -> C:\Users\Hammer-HuberAT18\Source\Repos\SAP-1-Emulator\x64\Debug\SAP-1 Emulator.exe
